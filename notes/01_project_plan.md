@@ -1,10 +1,10 @@
 # Projektplan
 
-##Projektziel
+## Projektziel
 Ziel des Projektes ist eine Python-Simulation eines ungeschützen menschlichem Körper im Weltraum.
 Es wird ausschließlich der Wärmeaustausch des Körpers betrachtet.
 
-##Motivation
+## Motivation
 In Science-Fiction-Filmen gefrieren Personen im Weltraum sofort. Das soll überprüft werden.
 
 ## Fragestellungen
