@@ -20,7 +20,7 @@
 - Arme und Beine werden als Zylinder modelliert.
 - Alle Körperteile besitzen zu jedem Zeitpunkt dieselbe Temperatur.
 - Die Oberflächen der einzelnen Körperteile werden zu einer gesamten abstrahlenden Körperoberfläche zusammengefasst.
-- Kontaktflächen zwischen den Körperteilen werden zunächst vernachlässigt.
+- Kontaktflächen zwischen den Körperteilen werden zunächst vernachlässigt, dafür werden bei Beinen und Armen nur mit einer Stirnfläche gerechnet.
 
 ## Szenario: Freier interstellarer Raum
 

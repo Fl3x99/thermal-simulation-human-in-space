@@ -1,6 +1,11 @@
+from math import pi
+
 
 class Human:
-    def __init__(self, mass, temperature, specific_heat_capacity, metabolic_power, emissivity_ir, absorptivity_sun , absorptivity_ir):
+    def __init__(self, mass, temperature, specific_heat_capacity, metabolic_power, emissivity_ir, absorptivity_sun ,
+                 absorptivity_ir, head_radius, torso_height, torso_width, torso_depth, arm_length, arm_radius,
+                 leg_length, leg_radius):
+        # Parameter übergeben
         self.mass = mass
         self.temperature = temperature
         self.specific_heat_capacity = specific_heat_capacity
@@ -8,3 +13,21 @@ class Human:
         self.emissivity_ir = emissivity_ir
         self.absorptivity_sun = absorptivity_sun
         self.absorptivity_ir = absorptivity_ir
+        self.head_radius = head_radius
+        self.torso_height = torso_height
+        self.torso_width = torso_width
+        self.torso_depth = torso_depth
+        self.arm_length = arm_length
+        self.arm_radius = arm_radius
+        self.leg_length = leg_length
+        self.leg_radius = leg_radius
+        # Oberfläche berechnen
+        self.calculate_total_surface_area()
+
+    def calculate_total_surface_area(self):
+        head_surface = 4*pi*self.head_radius**2
+        torso_surface = 2*(self.torso_height*self.torso_width+self.torso_height*self.torso_depth+self.torso_width*self.torso_depth)
+        arm_surface = pi*self.arm_radius**2+2*pi*self.arm_radius*self.arm_length
+        leg_surface = pi*self.leg_radius**2+2*pi*self.leg_radius*self.leg_length
+
+        self.total_surface_area = head_surface+torso_surface+2*arm_surface+2*leg_surface
