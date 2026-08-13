@@ -1,6 +1,7 @@
 from src.human import Human
 from src.environment import Environment
 from src.radiation import calculate_IR_emitted_power,calculate_cmb_absorbed_power
+from src.simulation import calculate_net_power, calculate_temperature_change, euler_step, run_simulation
 
 astronaut = Human(
     mass = 90,
@@ -31,3 +32,14 @@ cmb_power = calculate_cmb_absorbed_power(astronaut, environment)
 
 print(f"IR-Leistung: {emitted_power:.2f} W")
 print(f"CMB-Leistung: {cmb_power:.12f} W")
+
+P_net = calculate_net_power(astronaut, environment)
+print(f"Nettoleistung: {P_net:.2f} W")
+change_rate = calculate_temperature_change(astronaut, environment)
+print(f"Temperaturaenderung: {change_rate:.12f} K/s")
+
+new_Tem = euler_step(astronaut, environment, 1)
+print(f"Neue Temperatur: {new_Tem:.5f} K")
+
+run_sim = run_simulation(astronaut, environment, 1, 60)
+print(f"Neue Temperatur Astronaut: {astronaut.temperature:.5f} K")
