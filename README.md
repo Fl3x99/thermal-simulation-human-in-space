@@ -14,3 +14,7 @@ Ziel ist es, mithilfe einer Python-Simulation verschiedene Szenarien zu vergleic
 - Rotation des Körpers
 
 Das Projekt befindet sich derzeit in der Planungsphase.
+
+# numeric model
+Das Projekt benutzt bei der Euler-Methode eine Schrittweite von einer Sekunde. Die benötigte Rechenleistung ist 
+ausreichend gering, sodass die Rechenkapazität keinen begrenzenden Faktor darstellt.

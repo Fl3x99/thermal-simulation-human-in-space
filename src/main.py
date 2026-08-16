@@ -1,6 +1,7 @@
-from human import Human
-from environment import Environment
-
+from src.human import Human
+from src.environment import Environment
+from src.simulation import run_simulation
+from src.plots import plot_temperatures
 
 astronaut = Human(
     mass = 90,
@@ -26,3 +27,7 @@ environment = Environment(
     cmb_temperature = 2.7, # in K
     rotation_period = 60, # in Sekunden für eine volle Umdrehung
 )
+
+times, temperatures = run_simulation(astronaut, environment, 60, 21600)
+
+plot_temperatures(times, temperatures)

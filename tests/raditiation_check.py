@@ -1,6 +1,6 @@
 from src.human import Human
 from src.environment import Environment
-from src.radiation import calculate_IR_emitted_power,calculate_cmb_absorbed_power
+from src.radiation import calculate_IR_emitted_power,calculate_cmb_absorbed_power, calculate_I_sun_distance, calculate_abs_sun_power
 from src.simulation import calculate_net_power, calculate_temperature_change, euler_step, run_simulation
 
 astronaut = Human(
@@ -41,5 +41,11 @@ print(f"Temperaturaenderung: {change_rate:.12f} K/s")
 new_Tem = euler_step(astronaut, environment, 1)
 print(f"Neue Temperatur: {new_Tem:.5f} K")
 
-run_sim = run_simulation(astronaut, environment, 1, 60)
-print(f"Neue Temperatur Astronaut: {astronaut.temperature:.5f} K")
+times, temperatures = run_simulation(astronaut, environment, 1, 60)
+print(f"Neue Temperatur Astronaut: {temperatures[-1]:.5f} K")
+
+I_r = calculate_I_sun_distance(environment)
+print(f"Sonnenintensität: {I_r:.5f} W/m^2 bei einem Abstand von {environment.sun_distance:.1f} AE")
+
+P_sun = calculate_abs_sun_power(environment, astronaut)
+print(f"Sonnenleistung ist: {P_sun:.5f} W")

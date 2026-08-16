@@ -23,6 +23,8 @@ class Human:
         self.leg_radius = leg_radius
         # Oberfläche berechnen
         self.calculate_total_surface_area()
+        # projizierte Frontaloberfläche berechnen
+        self.calculate_projizierte_surface_area()
 
     def calculate_total_surface_area(self):
         head_surface = 4*pi*self.head_radius**2
@@ -31,3 +33,12 @@ class Human:
         leg_surface = pi*self.leg_radius**2+2*pi*self.leg_radius*self.leg_length
 
         self.total_surface_area = head_surface+torso_surface+2*arm_surface+2*leg_surface
+
+
+    def calculate_projizierte_surface_area(self): # Frontal
+        pro_head_surface = pi*self.head_radius**2 #pi*r^2
+        pro_torso_surface = self.torso_height*self.torso_width # Höhe*Breite
+        pro_arm_surface = self.arm_length*2*self.arm_radius #l*2*r
+        pro_leg_surface = self.leg_length*2*self.leg_radius # l*2*r
+
+        self.front_projizierte_surface_area = pro_head_surface+pro_torso_surface+2*pro_arm_surface+2*pro_leg_surface
