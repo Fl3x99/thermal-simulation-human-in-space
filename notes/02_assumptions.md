@@ -43,6 +43,7 @@
 - Die direkte Sonnenstrahlung wird nicht berücksichtigt.
 - Die von der Erde reflektierte Sonnenstrahlung wird berücksichtigt
 - Der Abstand zur Erde kann verändert werden.
+- Der Abstand zur Erde muss mindestens 6471 km betragen. (Erdabstand+Karamanline) Physikalisch gibt es keinen festen übergang zwischen Atmosphere und Weltraum 
 
 ## Szenario: Sonne und Erde
 

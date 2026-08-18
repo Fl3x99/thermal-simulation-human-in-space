@@ -43,9 +43,13 @@
 
 ## Umgebung
 
-| Parameter            | Wert | Einheit | Bemerkung                             |
-|----------------------|-----|-----|---------------------------------------|
-| Abstand zur Sonne    | 1   | AE  | Erdumlaufbahn / später in m umrechnen |
-| Abstand zum Erdmittelpunkt | 42164 | km  | Geo. Orbit / später in m umrechnen    |
-| Temperatur CMB       | 2,7 | K   | Standardwert                          |
-| Rotationsdauer       | 60  | s   | -                                     |
+| Parameter                       | Wert  | Einheit | Bemerkung                             |
+|---------------------------------|-------|---------|---------------------------------------|
+| Abstand zur Sonne               | 1     | AE      | Erdumlaufbahn / später in m umrechnen |
+| Abstand zum Erdmittelpunkt      | 42164 | km      | Geo. Orbit / später in m umrechnen    |
+| Temperatur CMB                  | 2,7   | K       | Standardwert                          |
+| Rotationsdauer                  | 60    | s       | -                                     |
+| Sonnenintensität bei Erdabstand | 1361  | W/m^2   | https://llis.nasa.gov/lesson/693      |
+| IR Stahlung der Erde            | 241   | W/m^2   | https://llis.nasa.gov/lesson/693      |
+| Albedofaktor Erde               | 0,3   | -       | https://llis.nasa.gov/lesson/693      |
+| Erdradius                       | 6371  | km      |                                       |
