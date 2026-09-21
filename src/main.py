@@ -1,6 +1,6 @@
 from src.human import Human
 from src.environment import Environment
-from src.simulation import run_simulation, calculate_net_power
+from src.simulation import run_simulation, find_equilibrium_distance
 from src.plots import plot_temperatures
 
 def get_float_input(prompt, min_value):
@@ -15,10 +15,31 @@ def get_float_input(prompt, min_value):
         except ValueError:
             print("Geben Sie eine Zahl")
 
+def get_rotation_input():
+    while True:
+        rotation_choice = input("Soll Rotation aktivierte werden? Geben Sie 0 zum deaktivieren und 1 zum aktivierender Rotation ein!\nAuswahl: ")
+
+        if rotation_choice == "0":
+            print("Rotation deaktiviert!")
+            return None #nur zur übersicht, nicht notwendig
+
+        elif rotation_choice == "1":
+            print("Rotation aktiviert!")
+            period_time = get_float_input("Geben Sie die Zeit pro Umdrehung in Sekunden an! ", 0)
+            return period_time
+
+        else:
+            print("Geben Sie 0 der 1 ein!")
+
+
+
+
 
 # Es müssen immer beide Werte übergeben werden, auch wenn sie nicht gebraucht werden.
 sun_distance = None
 earth_distance = None
+# muss auch für den Interstellarfall inistalisiert sein
+period_time = None
 
 while True:
     choice = input("wählen Sie das Scenario:\n1:Interstellarer Raum\n2:Interplanetarer Raum\n3:Erdorbit\n4:Erdorbit mit Sonneneinfluss\nAuswahl:")
@@ -30,17 +51,20 @@ while True:
     elif choice == "2":
         scenario_choice = "sun"
         sun_distance = get_float_input("Geben Sie den Abstand zur Sonne in AE ein! ", 0)
+        period_time = get_rotation_input()
         break
 
     elif choice == "3":
         scenario_choice = "earth"
         earth_distance = get_float_input("Geben Sie den Abstand zum Erdmittelpunkt in km ein! ", 6471)
+        period_time = get_rotation_input()
         break
 
     elif choice == "4":
         scenario_choice = "sun_earth"
         sun_distance = get_float_input("Geben Sie den Abstand zur Sonne in AE ein! ", 0)
         earth_distance = get_float_input("Geben Sie den Abstand zum Erdmittelpunkt in km ein! ", 6471)
+        period_time = get_rotation_input()
         break
 
     else:
@@ -69,14 +93,20 @@ environment = Environment(
     sun_distance = sun_distance, #in AE
     earth_distance = earth_distance, # in km
     cmb_temperature = 2.7, # in K
-    rotation_period = 60, # in Sekunden für eine volle Umdrehung
+    rotation_period = period_time, # in Sekunden für eine volle Umdrehung
 )
 
-P_net_start = calculate_net_power(astronaut, environment, scenario_choice)
-print(f"Nettoleistung am Anfang: {P_net_start:.2f} W")
+equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
+if equilibrium_distance == None:
+    print("Es wurde kein Gleichgewichtsabstand gefunden!")
+else:
+    print(f"Bei Sonnenabstand: {environment.sun_distance:.2f} AE und einem Erdstartabstand: {environment.earth_distance:.2f} km ist {equilibrium_distance:.5f} km die Gleichgewichtsentfernung")
+    print(f"Sonnenabstandende: {environment.sun_distance:.2f} AE und Erdanstandende: {environment.earth_distance:.2f} km ist  ")
 
-times, temperatures = run_simulation(astronaut, environment, 60, 21600, scenario_choice)
+times, temperatures = run_simulation(astronaut, environment, 1, 21600, scenario_choice)
 
 plot_temperatures(times, temperatures)
+
+print(f"Endtemperatur: {temperatures[-1]:.5f} K")
 
 

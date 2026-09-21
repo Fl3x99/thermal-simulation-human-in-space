@@ -25,6 +25,8 @@ class Human:
         self.calculate_total_surface_area()
         # projizierte Frontaloberfläche berechnen
         self.calculate_projizierte_surface_area()
+        #projizierte Seitenfläche berechnen
+        self.calculate_projizierte_side_surface_area()
 
     def calculate_total_surface_area(self):
         head_surface = 4*pi*self.head_radius**2
@@ -42,3 +44,13 @@ class Human:
         pro_leg_surface = self.leg_length*2*self.leg_radius # l*2*r
 
         self.front_projizierte_surface_area = pro_head_surface+pro_torso_surface+2*pro_arm_surface+2*pro_leg_surface
+
+    def calculate_projizierte_side_surface_area(self):
+        pro_head_surface = pi * self.head_radius ** 2  # pi*r^2
+        pro_arm_surface = self.arm_length * 2 * self.arm_radius  # l*2*r
+        pro_leg_surface = self.leg_length * 2 * self.leg_radius  # l*2*r
+        pro_torso_surface = self.torso_height * self.torso_depth  # Höhe*Tiefe
+        pro_querschnitt_length = min(self.torso_height,self.arm_length)  # bestimmt die kürzere Länge von Arm oder Torso für die Überlappung
+        pro_querschnitt_torso_arm = pro_querschnitt_length * 2 * self.arm_radius  # bestimmt die Überlappungsfläche
+
+        self.side_projizierte_surface_area = pro_head_surface + pro_torso_surface + pro_arm_surface + pro_leg_surface - pro_querschnitt_torso_arm
