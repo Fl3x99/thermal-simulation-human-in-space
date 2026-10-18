@@ -2,6 +2,7 @@ from src.human import Human
 from src.environment import Environment
 from src.simulation import run_simulation, find_equilibrium_distance
 from src.plots import plot_temperatures
+from src.simulation import run_simulation, find_equilibrium_distance, calculate_net_power
 
 def get_float_input(prompt, min_value):
     while True:
@@ -97,16 +98,23 @@ environment = Environment(
 )
 
 equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
-if equilibrium_distance == None:
-    print("Es wurde kein Gleichgewichtsabstand gefunden!")
-else:
-    print(f"Bei Sonnenabstand: {environment.sun_distance:.2f} AE und einem Erdstartabstand: {environment.earth_distance:.2f} km ist {equilibrium_distance:.5f} km die Gleichgewichtsentfernung")
-    print(f"Sonnenabstandende: {environment.sun_distance:.2f} AE und Erdanstandende: {environment.earth_distance:.2f} km ist  ")
 
-times, temperatures = run_simulation(astronaut, environment, 1, 21600, scenario_choice)
+#environment.sun_distance = 0.8052248564001867
+#environment.earth_distance = 11298.506456498051
 
-plot_temperatures(times, temperatures)
+#P_test = calculate_net_power(astronaut, environment, "sun_earth", 1)
+#print("Nettoleistung am Gleichgewichtspunkt:", P_test)
 
-print(f"Endtemperatur: {temperatures[-1]:.5f} K")
+#print(f"Der Gleichgewichtsabstand ist {equilibrium_distance}")
+
+#if scenario_choice == "sun_earth":
+    #print("Anzahl Kurvenpunkte:", len(equilibrium_distance))
+    #print(equilibrium_distance)
+
+# times, temperatures = run_simulation(astronaut, environment, 1, 21600, scenario_choice)
+#
+# plot_temperatures(times, temperatures)
+#
+# print(f"Endtemperatur: {temperatures[-1]:.5f} K")
 
 
