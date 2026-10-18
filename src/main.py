@@ -1,7 +1,7 @@
 from src.human import Human
 from src.environment import Environment
 from src.simulation import run_simulation, find_equilibrium_distance
-from src.plots import plot_temperatures
+from src.plots import plot_temperatures, plot_equilibrium_curve
 from src.simulation import run_simulation, find_equilibrium_distance, calculate_net_power
 
 def get_float_input(prompt, min_value):
@@ -98,6 +98,8 @@ environment = Environment(
 )
 
 equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
+if scenario_choice == "sun_earth":
+    plot_equilibrium_curve(equilibrium_distance)
 
 #environment.sun_distance = 0.8052248564001867
 #environment.earth_distance = 11298.506456498051
