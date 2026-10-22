@@ -1,8 +1,7 @@
 from src.human import Human
 from src.environment import Environment
-from src.simulation import run_simulation, find_equilibrium_distance
 from src.plots import plot_temperatures, plot_equilibrium_curve
-from src.simulation import run_simulation, find_equilibrium_distance, calculate_net_power
+from src.simulation import run_simulation, find_equilibrium_distance
 
 def get_float_input(prompt, min_value):
     while True:
@@ -97,26 +96,22 @@ environment = Environment(
     rotation_period = period_time, # in Sekunden für eine volle Umdrehung
 )
 
-equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
-if scenario_choice == "sun_earth":
+if scenario_choice == "interstellar":
+    print("Interstellarer Raum: Kein Gleichgewichtsabstand zu berechnen.")
+
+elif scenario_choice == "sun_earth":
+    equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
     plot_equilibrium_curve(equilibrium_distance)
+    print('Die Gleichgewichtskurve ist ohne Rotation!')
 
-#environment.sun_distance = 0.8052248564001867
-#environment.earth_distance = 11298.506456498051
+else:
+    equilibrium_distance = find_equilibrium_distance(astronaut, environment, scenario_choice)
+    print(f"Der Gleichgewichtsabstand beträgt: {equilibrium_distance}\nDer Gleichgewichtsabstand ist ohne Rotation")
 
-#P_test = calculate_net_power(astronaut, environment, "sun_earth", 1)
-#print("Nettoleistung am Gleichgewichtspunkt:", P_test)
+times, temperatures = run_simulation(astronaut, environment, 1, 21600, scenario_choice)
 
-#print(f"Der Gleichgewichtsabstand ist {equilibrium_distance}")
+plot_temperatures(times, temperatures)
 
-#if scenario_choice == "sun_earth":
-    #print("Anzahl Kurvenpunkte:", len(equilibrium_distance))
-    #print(equilibrium_distance)
-
-# times, temperatures = run_simulation(astronaut, environment, 1, 21600, scenario_choice)
-#
-# plot_temperatures(times, temperatures)
-#
-# print(f"Endtemperatur: {temperatures[-1]:.5f} K")
+print(f"Endtemperatur: {temperatures[-1]:.5f} K")
 
 

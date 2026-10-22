@@ -44,3 +44,6 @@ density = astronaut.mass / total_volume
 print(f"Gesamtoberfläche: {astronaut.total_surface_area:.3f} m²")
 print(f"Gesamtvolumen: {total_volume:.3f} m³")
 print(f"Mittlere Dichte: {density:.1f} kg/m³")
+#Öberfläche größer als eines Menschen-Quader als Torso keine gute Annahme Zylinder echt besser
+#Volumen zu groß
+#Dichte zu gering

@@ -27,21 +27,21 @@ environment = Environment(
     rotation_period = 60, # in Sekunden für eine volle Umdrehung
 )
 
-result = Bisektionsverfahren(astronaut, environment)
+result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")
 
 environment.sun_distance = 1.5
-result = Bisektionsverfahren(astronaut, environment)
+result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")
 
 environment.sun_distance = 2
-result = Bisektionsverfahren(astronaut, environment)
+result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")
 
 environment.sun_distance = 5
-result = Bisektionsverfahren(astronaut, environment)
+result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")
 
 environment.sun_distance = 0.3
-result = Bisektionsverfahren(astronaut, environment)
+result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")

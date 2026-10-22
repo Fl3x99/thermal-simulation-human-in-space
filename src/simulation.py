@@ -1,5 +1,3 @@
-from fontTools.diff.color import red_start
-
 from src.radiation import calculate_IR_emitted_power,calculate_cmb_absorbed_power, calculate_abs_sun_power, calculate_abs_IR_earth_power, calculate_abs_albedo_power
 from math import pi, sin, cos
 
@@ -313,7 +311,7 @@ def find_equilibrium_curve(environment,human):
     environment.earth_distance = 6471
     environment.sun_distance = 2
     r_0 = environment.sun_distance
-    P_net_start = calculate_net_power(human, environment, 'sun_earth', 1)
+    P_net_start = calculate_net_power(human, environment, 'sun_earth', 0)
 
     max_steps = 100
     steps = 0
@@ -324,7 +322,7 @@ def find_equilibrium_curve(environment,human):
 
         while max_steps > steps:
             environment.sun_distance = r_1
-            P_net_1 = calculate_net_power(human, environment, 'sun_earth', 1)
+            P_net_1 = calculate_net_power(human, environment, 'sun_earth', 0)
             if P_net_1 <= 0:  # Leistung kleiner 0, kann für Bisektion verwendet werden
                 nullstelle_eingeklammert = True
                 break
@@ -336,7 +334,7 @@ def find_equilibrium_curve(environment,human):
 
         while max_steps > steps:
             environment.sun_distance = r_1
-            P_net_1 = calculate_net_power(human, environment, 'sun_earth', 1)
+            P_net_1 = calculate_net_power(human, environment, 'sun_earth', 0)
             if P_net_1 >= 0:
                 nullstelle_eingeklammert = True
                 break
@@ -386,13 +384,13 @@ def find_equilibrium_curve(environment,human):
 
         aktuell_Sonnenabstand = R_start + i * delta_r
         environment.sun_distance = aktuell_Sonnenabstand
-        print("Aktueller Sonnenabstand:", aktuell_Sonnenabstand)
+
 
         #für aktuellen Sonnenabstand Erdabstand finden
         environment.earth_distance = 6471
         r_0 = environment.earth_distance
 
-        P_net_start_erd = calculate_net_power(human, environment, 'sun_earth', 1)
+        P_net_start_erd = calculate_net_power(human, environment, 'sun_earth', 0)
         if P_net_start_erd == 0:
             Kurvenwerte.append((aktuell_Sonnenabstand, r_0))
             continue
@@ -407,7 +405,7 @@ def find_equilibrium_curve(environment,human):
 
             while max_steps > steps:
                 environment.earth_distance = r_1
-                P_net_1 = calculate_net_power(human, environment, 'sun_earth', 1)
+                P_net_1 = calculate_net_power(human, environment, 'sun_earth', 0)
                 if P_net_1 <= 0:  # Leistung kleiner 0, kann für Bisektion verwendet werden
                     nullstelle_eingeklammert = True
                     break
@@ -419,7 +417,7 @@ def find_equilibrium_curve(environment,human):
 
             while max_steps > steps:
                 environment.earth_distance = r_1
-                P_net_1 = calculate_net_power(human, environment, 'sun_earth', 1)
+                P_net_1 = calculate_net_power(human, environment, 'sun_earth', 0)
                 if P_net_1 >= 0:
                     nullstelle_eingeklammert = True
                     break
@@ -465,7 +463,7 @@ def bisection_step_2D(human, environment, r_0, r_1, flexibel_var):
     elif flexibel_var == "earth":
         environment.earth_distance = r_0
 
-    P_net_0 = calculate_net_power(human, environment, 'sun_earth',1)
+    P_net_0 = calculate_net_power(human, environment, 'sun_earth',0)
 
     if flexibel_var == "sun":
         environment.sun_distance = r_mid
@@ -473,7 +471,7 @@ def bisection_step_2D(human, environment, r_0, r_1, flexibel_var):
     elif flexibel_var == "earth":
         environment.earth_distance = r_mid
 
-    P_net_mid = calculate_net_power(human, environment, 'sun_earth',1)
+    P_net_mid = calculate_net_power(human, environment, 'sun_earth',0)
 
     if P_net_0 == 0:
         return r_0, r_0
@@ -486,71 +484,4 @@ def bisection_step_2D(human, environment, r_0, r_1, flexibel_var):
 
     elif P_net_mid == 0:  # r_mid ist dann die Nullstelle
         return r_mid, r_mid
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# def find_R_end_sun_earth():
-#
-#     environment.earth_distance = 6471
-#     r_0 = 1 #AE
-#     P_net_0 = calculate_net_power(human, environment,'sun', 1)  # Leistungswert bei r_0
-#     max_steps = 100
-#     steps = 0
-#
-#     if P_net_0 > 0: # Leistung größer 0, Abstand vergrößern
-#         r_1 = r_0 * 1.2
-#         while max_steps > steps:
-#             P_net_1 = calculate_net_power_at_r(human, environment, r_1, "sun")
-#             if P_net_1 < 0: # Leistung kleiner 0, kann für Bisektion verwendet werden
-#                 break
-#             r_1 = r_1 * 1.2
-#             steps = steps + 1
-#
-#     elif P_net_0 < 0: # Leistung kleiner 0, Abstand verringern
-#         r_1 = r_0* 0.8
-#
-#         while max_steps > steps:
-#             P_net_1 = calculate_net_power_at_r(human, environment, r_1, "sun")
-#             if P_net_1 > 0:
-#                 break
-#             r_1 = r_1 * 0.8
-#             steps = steps + 1
-#
-#     elif P_net_0 == 0: # nur für den unwahrscheinlichen Volltreffer
-#         print("Dein Startwert ist die Entfernung!")
-#         return r_0
-#
-#         # Schleife der Schritte
-#         toleranz = 1e-6
-#         max_schritte = 100
-#         schritte = 0
-#
-#     while max_schritte > schritte:  # kein extra Abbruchkriteriumschritte, da Pythongenauigkeit vor 100 Schritten erreicht.(Also Toleranzfehler)
-#
-#         r_0, r_1 = bisection_step(human, environment, r_0, r_1, "sun")
-#
-#         fehler = abs(r_1 - r_0)
-#         if fehler <= toleranz:
-#             r_NST = (r_1 + r_0) / 2
-#             #set_distance(environment, scenario_choice, original_distance)
-#             return r_NST
-#
-#         schritte = schritte + 1
-#
-#     #set_distance(environment, scenario_choice, original_distance)
-#     return r_0
 

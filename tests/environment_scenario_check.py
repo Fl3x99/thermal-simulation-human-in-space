@@ -1,12 +1,14 @@
 from src.human import Human
 from src.environment import Environment
-from src.simulation import run_simulation
+from src.simulation import run_simulation, decide_projizierte_surface_area
 from src.plots import plot_temperatures
 
 from src.radiation import calculate_I_sun_distance, calculate_abs_sun_power
 from src.simulation import calculate_net_power
 
-
+sun_distance = 1       # AE
+earth_distance = None  # Keine Erde
+scenario_choice = "sun"
 
 astronaut = Human(
     mass = 90,
@@ -30,14 +32,15 @@ environment = Environment(
     sun_distance = sun_distance, #in AE
     earth_distance = earth_distance, # in km
     cmb_temperature = 2.7, # in K
-    rotation_period = 60, # in Sekunden für eine volle Umdrehung
+    rotation_period = None, # in Sekunden für eine volle Umdrehung
 )
 
 I_r = calculate_I_sun_distance(environment)
 print(f"Sonnenintensität: {I_r:.5f} W/m^2 bei einem Abstand von {environment.sun_distance:.1f} AE")
-P_sun = calculate_abs_sun_power(environment, astronaut)
+A_pro = decide_projizierte_surface_area(astronaut, environment, 0)
+P_sun = calculate_abs_sun_power(environment, astronaut, A_pro)
 print(f"Sonnenleistung ist: {P_sun:.5f} W")
-P_net = calculate_net_power(astronaut, environment, scenario_choice)
+P_net = calculate_net_power(astronaut, environment, scenario_choice, 0)
 print(f"Die Gesamtenergiebilanz ist: {P_net:.5f} W")
 
 times, temperatures = run_simulation(astronaut, environment, 60, 21600, scenario_choice)
@@ -46,7 +49,8 @@ plot_temperatures(times, temperatures)
 
 I_r = calculate_I_sun_distance(environment)
 print(f"Sonnenintensität: {I_r:.5f} W/m^2 bei einem Abstand von {environment.sun_distance:.1f} AE")
-P_sun = calculate_abs_sun_power(environment, astronaut)
+A_pro = decide_projizierte_surface_area(astronaut, environment, 0)
+P_sun = calculate_abs_sun_power(environment, astronaut, A_pro)
 print(f"Sonnenleistung ist: {P_sun:.5f} W")
-P_net = calculate_net_power(astronaut, environment, scenario_choice)
+P_net = calculate_net_power(astronaut, environment, scenario_choice, 0)
 print(f"Die Gesamtenergiebilanz ist: {P_net:.5f} W")
