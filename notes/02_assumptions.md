@@ -21,7 +21,14 @@
 - Alle Körperteile besitzen zu jedem Zeitpunkt dieselbe Temperatur.
 - Die Oberflächen der einzelnen Körperteile werden zu einer gesamten abstrahlenden Körperoberfläche zusammengefasst.
 - Kontaktflächen zwischen den Körperteilen werden zunächst vernachlässigt, dafür werden bei Beinen und Armen nur mit einer Stirnfläche gerechnet.
-- Es wird davon ausgegangen, dass der Körper frontal zur Sonne/Erde ausgerichtet ist. 
+- Es wird davon ausgegangen, dass der Körper frontal zur Sonne/Erde (ohne Rotation) ausgerichtet ist. 
+- Bei der seitlichen Projektionsfläche wird die Überlappung zwischen Arm und Rumpf näherungsweise berücksichtigt.
+
+## Strahlungsberechnung
+
+- Die Sonnenstrahlung wird über das Abstandsquadratgesetz bestimmt.
+- Die Erdinfrarotstrahlung wird über das Abstandsquadratgesetz bestimmt.
+- Die Albedostrahlung wird vereinfacht mit einer konstanten Albedo von 0,3 berechnet.
 
 ## Szenario: Freier interstellarer Raum
 
@@ -41,9 +48,9 @@
 
 - Die Wärmestrahlung der Erde wird berücksichtigt.
 - Die direkte Sonnenstrahlung wird nicht berücksichtigt.
-- Die von der Erde reflektierte Sonnenstrahlung wird berücksichtigt
+- Die von der Erde reflektierte Sonnenstrahlung wird nicht berücksichtigt.
 - Der Abstand zur Erde kann verändert werden.
-- Der Abstand zur Erde muss mindestens 6471 km betragen. (Erdabstand+Karamanline) Physikalisch gibt es keinen festen übergang zwischen Atmosphere und Weltraum 
+- Der Abstand zur Erde muss größer als 6471 km sein. (Erdradius+Kármán-Linie) Physikalisch gibt es keinen festen Übergang zwischen Atmosphäre und Weltraum 
 
 ## Szenario: Sonne und Erde
 
@@ -54,5 +61,13 @@
 
 ## Rotation
 
-- Die Rotation kann unabhängig vom gewählten Umgebungsszenario aktiviert werden.
-- Rotationsgeschwindigkeit soll veränderbar sein.
+- Die Rotation kann in den Umgebungsszenarien: nur Sonne, nur Erde, Sonne und Erde aktiviert werden. Im Fall interstellarer Raum hat Rotation keinen Einfluss.
+- Die Rotationsgeschwindigkeit ist über die Periodendauer einer vollständigen Umdrehung veränderbar.
+- Bei aktivierter Rotation verändert sich die projizierte Fläche zeitabhängig. Die gesamte abstrahlende Körperoberfläche bleibt dabei konstant.
+- Die projizierte Fläche wird aus Frontal- und Seitenansicht gebildet.
+
+## Aufgefallene Einschränkungen
+- Die Armhaltung ist in der Frontal- und Seitenansicht nicht vollständig konsistent modelliert.
+- In der Frontalansicht wird eine T-Pose mit seitlich ausgestreckten Armen angenommen.
+- In der Seitenansicht wird dagegen eine Überlappung zwischen Arm und Rumpf berücksichtigt, die eher einer Haltung mit am Körper anliegenden Armen entspricht.
+- Da die projizierte Fläche bei Rotation über A = A_front * |cos(w*t)| + A_side * |sin(w*t)| berechnet wird, wird eine unmögliche Körperhaltung von ausgestreckten Armen und nach unten gerichteten Armen angenommen. 

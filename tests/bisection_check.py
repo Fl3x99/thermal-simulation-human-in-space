@@ -1,6 +1,6 @@
 from src.human import Human
 from src.environment import Environment
-from src.simulation import bisection_step, Bisektionsverfahren
+from src.simulation import bisection_step, Bisektionsverfahren,itteration_newton, calculate_net_power_at_r
 
 astronaut = Human(
     mass = 90,
@@ -45,3 +45,22 @@ print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {resul
 environment.sun_distance = 0.3
 result = Bisektionsverfahren(astronaut, environment, "sun")
 print(f"Das Ergebnis bei Startwert: {environment.sun_distance:.2f} AE ist {result:.5f} AE")
+
+# Newton-Verfahren auf verbleibende Nettoleistung prüfen
+r_newton = itteration_newton(astronaut, environment, "sun")
+
+print("\nNewton-Test:")
+print("Berechneter Abstand:", r_newton, "AU")
+
+if r_newton is not None:
+    original_distance = environment.sun_distance
+
+    P_rest = calculate_net_power_at_r(
+        astronaut, environment, r_newton, "sun"
+    )
+
+    environment.sun_distance = original_distance
+
+    print("Verbleibende Nettoleistung:", P_rest, "W")
+else:
+    print("Newton-Verfahren nicht konvergiert")

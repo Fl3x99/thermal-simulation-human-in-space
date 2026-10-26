@@ -342,6 +342,8 @@ def find_equilibrium_curve(environment,human):
             steps = steps + 1
     # Abstand für Bisection eingeschlossen mit r_0 und r_1 zur bestimmung von R_end
     if not nullstelle_eingeklammert:
+        environment.sun_distance = original_distance_sun
+        environment.earth_distance = original_distance_earth
         raise ValueError("Sonnen-Nullstelle konnte nicht eingeklammert werden")
     print("r_0:", r_0)
     print("P_net bei r_0:", P_net_start)
@@ -369,6 +371,8 @@ def find_equilibrium_curve(environment,human):
         schritte = schritte + 1
 
     if r_end is None:
+        environment.sun_distance = original_distance_sun
+        environment.earth_distance = original_distance_earth
         raise ValueError("Sonnen-Bisektion hat nicht konvergiert")
 
     #Kurve erstellen
